@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barbería 420 | Cortes, Barba y Color en Montevideo</title>
+<meta name="description" content="Barbería 420 — Corte, barba, colorimetría y más. Agendá tu turno online. Lunes a sábado de 10 a 19hs.">
+<meta property="og:title" content="Barbería 420">
+<meta property="og:description" content="Tu estilo comienza acá. Agendá tu turno online.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?auto=format&fit=crop&w=1200&q=80">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0a0a;
+  --bg-alt:#141414;
+  --bg-card:#181818;
+  --green:#00e676;
+  --green-deep:#00b359;
+  --gold:#c9a227;
+  --text:#f2f2f2;
+  --text-muted:#9a9a9a;
+  --stripe-size:56px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);overflow-x:hidden;}
+
+.mono{font-family:'JetBrains Mono',monospace;}
+.display{font-family:'Bebas Neue',sans-serif;letter-spacing:2px;}
+
+/* ---------- NAV ---------- */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:18px 6%;
+  background:rgba(10,10,10,0);
+  transition:background .35s ease, box-shadow .35s ease;
+}
+nav.scrolled{
+  background:rgba(10,10,10,.9);
+  backdrop-filter:blur(6px);
+  box-shadow:0 2px 20px rgba(0,0,0,.4);
+}
+nav .logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:3px;color:var(--text);}
+nav .logo span{color:var(--green);}
+nav ul{list-style:none;display:flex;gap:34px;}
+nav ul li a{
+  color:var(--text-muted);text-decoration:none;font-size:14px;
+  letter-spacing:1px;text-transform:uppercase;font-weight:500;
+  transition:color .25s ease;position:relative;
+}
+nav ul li a:hover{color:var(--green);}
+nav .nav-cta{
+  background:var(--green);color:#0a0a0a;padding:10px 22px;border-radius:30px;
+  font-weight:700;text-decoration:none;font-size:13px;letter-spacing:1px;text-transform:uppercase;
+  transition:.25s ease;
+}
+nav .nav-cta:hover{background:var(--gold);transform:translateY(-2px);}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+.burger span{width:26px;height:2px;background:var(--text);display:block;}
+
+/* ---------- HERO ---------- */
+header{
+  height:100svh;min-height:600px;position:relative;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;overflow:hidden;
+}
+header::before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(rgba(0,0,0,.55),rgba(5,5,5,.9)),
+    url("https://images.unsplash.com/photo-1622286342621-4bd786c2447c?auto=format&fit=crop&w=1600&q=80");
+  background-size:cover;background-position:center 30%;
+  transform:scale(1.08);
+  animation:heroPan 18s ease-in-out infinite alternate;
+  z-index:-2;
+}
+@keyframes heroPan{
+  from{transform:scale(1.08) translateY(0);}
+  to{transform:scale(1.14) translateY(-2%);}
+}
+.hero-content{position:relative;z-index:2;padding:0 20px;}
+.eyebrow{
+  font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:5px;
+  color:var(--green);text-transform:uppercase;opacity:0;
+  animation:fadeUp .8s ease .2s forwards;
+}
+header h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(52px,10vw,110px);
+  letter-spacing:6px;line-height:.95;margin:10px 0 18px;
+  opacity:0;animation:fadeUp .9s ease .4s forwards;
+}
+header h1 .cut{color:var(--green);display:inline-block;}
+header p.tagline{
+  font-size:19px;color:var(--text-muted);letter-spacing:.5px;
+  opacity:0;animation:fadeUp .9s ease .6s forwards;
+}
+.btn-primary{
+  margin-top:38px;display:inline-flex;align-items:center;gap:10px;
+  padding:16px 40px;background:var(--green);color:#0a0a0a;
+  text-decoration:none;border-radius:50px;font-weight:700;letter-spacing:.5px;
+  box-shadow:0 0 0 0 rgba(0,230,118,.5);
+  opacity:0;animation:fadeUp .9s ease .8s forwards, pulseGlow 2.6s ease-in-out 1.6s infinite;
+}
+.btn-primary:hover{background:var(--gold);color:#0a0a0a;}
+@keyframes pulseGlow{
+  0%,100%{box-shadow:0 0 0 0 rgba(0,230,118,.35);}
+  50%{box-shadow:0 0 0 14px rgba(0,230,118,0);}
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px);}to{opacity:1;transform:translateY(0);}}
+
+.scroll-cue{
+  position:absolute;bottom:34px;left:50%;transform:translateX(-50%);
+  width:26px;height:42px;border:2px solid var(--text-muted);border-radius:14px;
+  z-index:2;
+}
+.scroll-cue::before{
+  content:"";position:absolute;top:6px;left:50%;transform:translateX(-50%);
+  width:4px;height:8px;background:var(--green);border-radius:2px;
+  animation:scrollDot 1.8s ease infinite;
+}
+@keyframes scrollDot{0%{opacity:1;top:6px;}70%{opacity:0;top:20px;}100%{opacity:0;top:6px;}}
+
+/* ---------- STRIPE DIVIDER (signature element) ---------- */
+.stripe{
+  height:26px;width:100%;
+  background:repeating-linear-gradient(
+    -45deg,
+    var(--green) 0 18px,
+    var(--gold) 18px 36px,
+    #0a0a0a 36px 54px
+  );
+  background-size:var(--stripe-size) var(--stripe-size);
+  animation:slideStripe 6s linear infinite;
+}
+@keyframes slideStripe{from{background-position:0 0;}to{background-position:var(--stripe-size) 0;}}
+
+/* ---------- SECTIONS ---------- */
+section{padding:100px 8% 90px;}
+.section-head{text-align:center;margin-bottom:56px;}
+.section-head .eyebrow{color:var(--gold);}
+.section-head h2{
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,5vw,54px);
+  letter-spacing:3px;margin-top:8px;
+}
+
+.reveal{opacity:0;transform:translateY(50px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.in{opacity:1;transform:translateY(0);}
+
+/* Servicios */
+.servicios{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;}
+.card{
+  background:var(--bg-card);padding:34px 28px;border-radius:14px;
+  border:1px solid rgba(255,255,255,.05);position:relative;overflow:hidden;
+  transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+}
+.card::before{
+  content:"";position:absolute;top:0;left:0;width:4px;height:100%;
+  background:var(--green);transform:scaleY(0);transform-origin:top;
+  transition:transform .35s ease;
+}
+.card:hover{transform:translateY(-10px);border-color:rgba(0,230,118,.35);box-shadow:0 20px 40px rgba(0,0,0,.45);}
+.card:hover::before{transform:scaleY(1);}
+.card h3{font-size:19px;margin-bottom:10px;color:var(--text);font-weight:600;}
+.card p{color:var(--text-muted);font-size:14px;line-height:1.5;}
+.card .precio{
+  font-family:'JetBrains Mono',monospace;font-size:30px;font-weight:600;
+  color:var(--green);margin-top:14px;
+}
+
+/* Horarios */
+.horarios-wrap{display:flex;justify-content:center;}
+.horarios{
+  display:flex;gap:60px;flex-wrap:wrap;justify-content:center;
+  background:var(--bg-card);padding:40px 60px;border-radius:16px;
+  border:1px solid rgba(255,255,255,.05);
+}
+.horarios .col{text-align:center;}
+.horarios .col .label{
+  font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:2px;
+  color:var(--gold);text-transform:uppercase;
+}
+.horarios .col .value{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;margin-top:8px;}
+
+/* Redes */
+.redes{text-align:center;}
+.redes a.ig{
+  display:inline-flex;align-items:center;gap:10px;
+  margin-top:10px;padding:16px 34px;
+  background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af,#515bd4);
+  color:white;text-decoration:none;border-radius:30px;font-weight:600;
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+.redes a.ig:hover{transform:scale(1.05);box-shadow:0 0 30px rgba(221,42,123,.45);}
+
+/* Agenda */
+#agenda{text-align:center;}
+.agenda-box{
+  margin-top:20px;border-radius:16px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.08);
+  background:var(--bg-card);
+}
+iframe{width:100%;height:700px;border:none;display:block;}
+.agenda-fallback{
+  padding:60px 20px;color:var(--text-muted);font-size:15px;line-height:1.7;
+}
+.agenda-fallback a{color:var(--green);font-weight:600;text-decoration:none;}
+
+footer{
+  padding:40px 8% 30px;text-align:center;background:var(--bg-alt);
+  color:var(--text-muted);font-size:13px;
+}
+footer .display{font-size:20px;color:var(--text);display:block;margin-bottom:8px;}
+
+@media (max-width:820px){
+  nav ul{position:fixed;top:0;right:-100%;height:100svh;width:70%;
+    background:rgba(8,8,8,.98);flex-direction:column;justify-content:center;
+    align-items:center;gap:30px;transition:right .35s ease;}
+  nav ul.open{right:0;}
+  .burger{display:flex;}
+  .horarios{gap:30px;padding:30px;}
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;}
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="logo">BARBERÍA <span>420</span></div>
+  <ul id="navlinks">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#horarios">Horarios</a></li>
+    <li><a href="#instagram">Instagram</a></li>
+    <li><a href="#agenda" class="nav-cta">Agendar</a></li>
+  </ul>
+  <button class="burger" id="burger" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+</nav>
+
+<header>
+  <div class="hero-content">
+    <div class="eyebrow mono">MONTEVIDEO · LUN–SÁB</div>
+    <h1>BARBERÍA <span class="cut">420</span></h1>
+    <p class="tagline">Tu estilo comienza acá.</p>
+    <a href="#agenda" class="btn-primary">Agendar turno</a>
+  </div>
+  <div class="scroll-cue"></div>
+</header>
+
+<div class="stripe"></div>
+
+<section id="servicios">
+  <div class="section-head reveal">
+    <div class="eyebrow mono">CARTA</div>
+    <h2>Servicios</h2>
+  </div>
+  <div class="servicios">
+    <div class="card reveal"><h3>Corte + Ceja</h3><div class="precio">$300</div></div>
+    <div class="card reveal"><h3>Corte + Barba + Ceja</h3><div class="precio">$400</div></div>
+    <div class="card reveal"><h3>Pasá a otro plano</h3><p>Consultanos por este servicio.</p></div>
+    <div class="card reveal"><h3>Colorimetría</h3><p>Asesoramiento profesional.</p></div>
+    <div class="card reveal"><h3>Platinado</h3><div class="precio">$1500</div></div>
+    <div class="card reveal"><h3>Mechas</h3><div class="precio">$1000</div></div>
+    <div class="card reveal"><h3>Color Personalizado</h3><p>Costo extra según el trabajo realizado.</p></div>
+  </div>
+</section>
+
+<div class="stripe"></div>
+
+<section id="horarios">
+  <div class="section-head reveal">
+    <div class="eyebrow mono">ATENCIÓN</div>
+    <h2>Horarios</h2>
+  </div>
+  <div class="horarios-wrap reveal">
+    <div class="horarios">
+      <div class="col">
+        <div class="label">Días</div>
+        <div class="value">Lun – Sáb</div>
+      </div>
+      <div class="col">
+        <div class="label">Horario</div>
+        <div class="value">10:00 – 19:00</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="instagram" class="redes">
+  <div class="section-head reveal">
+    <div class="eyebrow mono">SEGUINOS</div>
+    <h2>Instagram</h2>
+  </div>
+  <a class="ig reveal" href="https://www.instagram.com/brahiaan.casco?igsh=MWkzb251YWw3cnFzZQ==" target="_blank" rel="noopener">
+    @brahiaan.casco
+  </a>
+</section>
+
+<div class="stripe"></div>
+
+<section id="agenda">
+  <div class="section-head reveal">
+    <div class="eyebrow mono">RESERVÁ</div>
+    <h2>Agendar Turno</h2>
+    <p style="color:var(--text-muted);margin-top:10px;">Elegí el día y la hora disponible.</p>
+  </div>
+  <div class="agenda-box reveal" id="agenda-box">
+
+    <!--
+      ============================================================
+      CÓMO CONECTAR LA AGENDA REAL (elegí una opción y descomentá):
+      ============================================================
+
+      OPCIÓN A — Google Calendar (cita programada):
+      1. Entrá a calendar.google.com desde una compu.
+      2. Creá/abrí un "Calendario con cita" y cargá tus horarios.
+      3. Click en "Compartir esta página de reservas" y copiá el link.
+      4. Reemplazá TU_LINK_DE_GOOGLE_CALENDAR de abajo por ese link,
+         y sacá el "agenda-fallback" (o dejalo, no molesta oculto).
+
+      <iframe src="TU_LINK_DE_GOOGLE_CALENDAR" loading="lazy"></iframe>
+
+      OPCIÓN B — WhatsApp:
+      Reemplazá TU_NUMERO (con código de país, sin + ni espacios,
+      ej. 59891234567) en el botón de abajo.
+      ============================================================
+    -->
+
+    <div class="agenda-fallback">
+      <p style="font-size:17px;color:var(--text);margin-bottom:22px;">
+        Por ahora, reservá tu turno escribiéndonos directamente 👇
+      </p>
+      <a class="btn-primary" style="animation:none;box-shadow:none;"
+         href="https://www.instagram.com/brahiaan.casco?igsh=MWkzb251YWw3cnFzZQ==" target="_blank" rel="noopener">
+        Escribir por Instagram
+      </a>
+      <p style="margin-top:26px;font-size:13px;color:var(--text-muted);">
+        (Este botón se puede reemplazar por WhatsApp o por tu agenda de<br>
+        Google Calendar en cuanto tengas el link — avisame y lo dejo listo.)
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="display">BARBERÍA 420</span>
+  © 2026 Barbería 420 - Todos los derechos reservados.
+</footer>
+
+<script>
+// Nav scroll state
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// Mobile menu
+const burger = document.getElementById('burger');
+const navlinks = document.getElementById('navlinks');
+burger.addEventListener('click', () => navlinks.classList.toggle('open'));
+navlinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navlinks.classList.remove('open')));
+
+// Scroll reveal
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.15 });
+revealEls.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
